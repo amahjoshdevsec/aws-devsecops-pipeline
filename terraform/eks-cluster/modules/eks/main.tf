@@ -95,7 +95,7 @@ resource "aws_eks_node_group" "this" {
     max_size     = var.node_group_max_size
   }
 
-  ami_type       = "AL2_x86_64"
+  ami_type       = "AL2023_x86_64_STANDARD"
   instance_types = var.instance_types
   disk_size      = var.node_group_disk_size
   capacity_type  = "ON_DEMAND"
