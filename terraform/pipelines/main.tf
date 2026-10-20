@@ -43,7 +43,7 @@ module "awsome_fastapi_pipeline" {
   s3_bucket_arn  = module.default_bucket.bucket_arn
 
   repo_name     = "awsome-fastapi"
-  repository_id = "The-DevSec-Blueprint/awsome-fastapi"
+  repository_id = "amahjoshdevsec/awsome-fastapi"
   branch_name   = "main"
 
   eks_cluster_name = var.eks_cluster_name
