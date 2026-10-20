@@ -6,7 +6,7 @@ on:
 env:
   TF_CLOUD_ORGANIZATION: "ADELL"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "aws-devsecops-pipelines"
+  TF_WORKSPACE: "dsb-aws-devsecops-pipelines-1"
   CONFIG_DIRECTORY: "./terraform/pipelines"
 
 jobs:

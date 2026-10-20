@@ -6,7 +6,7 @@ on:
 env:
   TF_CLOUD_ORGANIZATION: "ADELL"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "aws-devsecops-eks-cluster"
+  TF_WORKSPACE: "dsb-aws-devsecops-eks-cluster-1"
   CONFIG_DIRECTORY: "./terraform/eks-cluster"
 
 jobs:
