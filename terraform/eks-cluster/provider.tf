@@ -4,7 +4,7 @@ provider "aws" {
 
 terraform {
   cloud {
-    organization = "DSB"
+    organization = "ADELL"
 
     workspaces {
       name = "aws-devsecops-eks-cluster"
