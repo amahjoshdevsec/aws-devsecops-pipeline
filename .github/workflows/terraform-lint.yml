@@ -7,15 +7,17 @@ jobs:
   lint-and-format:
     name: Lint and Format Terraform Files
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7.0.1
 
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v4.0.1
         with:
           terraform_version: latest
 
-      - name: Format Terraform files
-        run: terraform fmt -check
+      - name: Check Terraform formatting
+        run: terraform fmt -check -recursive terraform

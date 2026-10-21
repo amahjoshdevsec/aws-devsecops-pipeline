@@ -1,3 +1,5 @@
+name: Deploy DevSecOps Pipeline
+
 on:
     push:
       branches:
@@ -5,7 +7,12 @@ on:
     workflow_dispatch:
 
 jobs:
+    terraform-lint:
+        uses: ./.github/workflows/terraform-lint.yml
+        permissions:
+            contents: read
     terraform-apply-eks:
+        needs: terraform-lint
         uses: ./.github/workflows/terraform-apply-eks.yml
         permissions:
             contents: read
