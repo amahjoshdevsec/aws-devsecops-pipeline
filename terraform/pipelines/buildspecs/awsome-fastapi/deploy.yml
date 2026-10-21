@@ -1,10 +1,17 @@
 version: 0.2
 
+env:
+  variables:
+    # Keep within one minor version of the EKS cluster (terraform/eks-cluster)
+    KUBECTL_VERSION: "v1.36.5"
+
 phases:
   install:
     commands:
-      - echo "Installing kubectl..."
-      - curl -LO "https://s3.us-west-2.amazonaws.com/amazon-eks/1.24.7/2022-10-31/bin/linux/amd64/kubectl"
+      - echo "Installing kubectl ${KUBECTL_VERSION}..."
+      - curl -fsSLO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
+      - curl -fsSLO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl.sha256"
+      - echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
       - chmod +x ./kubectl
       - mv ./kubectl /usr/local/bin
   pre_build:

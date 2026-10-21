@@ -1,6 +1,7 @@
 # Create the EKS Cluster
 resource "aws_eks_cluster" "this" {
   name     = var.cluster_name
+  version  = var.kubernetes_version
   role_arn = aws_iam_role.eks_cluster_role.arn
 
   vpc_config {

@@ -20,7 +20,8 @@ phases:
       # Fail the build if high or critical vulnerabilities are found
       - snyk test --file=requirements.txt --severity-threshold=high
       - echo "Running Snyk code security checks..."
-      # Fail the build if high or critical code vulnerabilities are found
+      # Report-only: the demo app is intentionally vulnerable (SQLi, path
+      # traversal, hardcoded secret), so SAST findings are surfaced, not gated
       - snyk code test --severity-threshold=high || true
   post_build:
     commands:

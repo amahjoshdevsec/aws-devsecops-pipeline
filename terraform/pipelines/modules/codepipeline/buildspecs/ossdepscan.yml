@@ -1,13 +1,17 @@
 version: 0.2
 
+env:
+  variables:
+    TRIVY_VERSION: "v0.76.0"
+
 phases:
   install:
     runtime-versions:
       python: 3.12
     commands:
-      - echo "Installing container scanning tools..."
+      - echo "Installing Trivy ${TRIVY_VERSION}..."
       - pip install --upgrade pip
-      - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+      - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/${TRIVY_VERSION}/contrib/install.sh | sh -s -- ${TRIVY_VERSION}
   pre_build:
     commands:
       - echo "Building Docker Container"
@@ -15,9 +19,11 @@ phases:
   build:
     commands:
       - echo "Scanning container for vulnerabilities with Trivy..."
-      # Fail the build on HIGH and CRITICAL vulnerabilities
-      #- ./bin/trivy image --severity HIGH,CRITICAL --exit-code 1 $IMAGE_REPO_NAME:latest
+      # Full HIGH/CRITICAL report, including vulnerabilities with no fix yet
       - ./bin/trivy image --severity HIGH,CRITICAL --exit-code 0 $IMAGE_REPO_NAME:latest
+      # Gate: fail only on HIGH/CRITICAL vulnerabilities that have a fix available,
+      # so unpatched base-image CVEs are reported but do not block delivery
+      - ./bin/trivy image --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 $IMAGE_REPO_NAME:latest
   post_build:
     commands:
       - echo "Container Scanning completed."
@@ -26,4 +32,3 @@ artifacts:
   files:
     - "**/*"
   discard-paths: yes
-  

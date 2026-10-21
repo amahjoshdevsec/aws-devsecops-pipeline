@@ -7,7 +7,7 @@ resource "kubernetes_config_map_v1_data" "this" {
   data = {
     mapRoles = yamlencode(
       concat(
-        yamldecode(try(data.kubernetes_config_map.aws_auth.data["mapRoles"], "[]")),
+        yamldecode(try(data.kubernetes_config_map_v1.aws_auth.data["mapRoles"], "[]")),
         [
           for role in var.roles : {
             rolearn  = role.rolearn
@@ -19,7 +19,7 @@ resource "kubernetes_config_map_v1_data" "this" {
     )
     mapUsers = yamlencode(
       concat(
-        yamldecode(try(data.kubernetes_config_map.aws_auth.data["mapUsers"], "[]")),
+        yamldecode(try(data.kubernetes_config_map_v1.aws_auth.data["mapUsers"], "[]")),
         [
           for user in var.users : {
             userarn  = user.userarn

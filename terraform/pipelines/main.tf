@@ -50,7 +50,7 @@ module "awsome_fastapi_pipeline" {
   eks_cluster_arn  = "arn:aws:eks:${var.region}:${data.aws_caller_identity.current.account_id}:cluster/${var.eks_cluster_name}"
 
   compute_type     = "BUILD_GENERAL1_SMALL"
-  build_image      = "aws/codebuild/standard:5.0"
+  build_image      = "aws/codebuild/standard:7.0"
   environment_type = "LINUX_CONTAINER"
   privileged_mode  = true
 
